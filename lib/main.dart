@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_crash/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: RootPage(),
     );
   }
@@ -23,19 +25,16 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  int count = 0;
-
-  void _incrementCount() {
-    setState(() {
-      count++;
-    });
-  }
+  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('App Bar Text $count'),
+        title: Text('App Bar Text $currentPageIndex'),
+      ),
+      body: const Center(
+        child: HomePage(),
       ),
       bottomNavigationBar: NavigationBar(
         destinations: const [
@@ -48,26 +47,13 @@ class _RootPageState extends State<RootPage> {
             label: 'Profile',
           ),
         ],
-        // items: const <BottomNavigationBarItem>[
-        //   BottomNavigationBarItem(
-        //     icon: Icon(Icons.home),
-        //     label: 'Home',
-        //     backgroundColor: Colors.blue,
-        //   ),
-        //   BottomNavigationBarItem(
-        //     icon: Icon(Icons.person),
-        //     label: 'Profile',
-        //     backgroundColor: Colors.green,
-        //   ),
-        // ],
-        // selectedItemColor: Colors.amber[800],
         onDestinationSelected: (int index) {
           debugPrint("Tapped on item $index");
           setState(() {
-            count = index;
+            currentPageIndex = index;
           });
         },
-        selectedIndex: count,
+        selectedIndex: currentPageIndex,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
