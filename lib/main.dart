@@ -23,11 +23,26 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  int count = 0;
+
+  void _incrementCount() {
+    setState(() {
+      count++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Root Page'),
+        title: Text('App Bar Text $count'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _incrementCount();
+          debugPrint("pressed");
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
